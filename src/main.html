@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Form</title>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Google+Sans:400,500,600,700|Google+Sans+Text:400,400italic,500,500italic,600,600italic,700,700italic|Roboto+Mono:400,500,700&display=swap">
+    <style>
+        body {
+            font-family: 'Google Sans', 'Roboto Mono', Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, #87CEEB, #FFFACD);
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        textarea {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+            height: 100px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button {
+            width: 100px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .eds-link {
+            color: #1E90FF;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .eds-link:hover {
+            color: #1C86EE;
+            text-decoration: underline;
+        }
+
+        .error {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Secret</h1>
+    <form id="messageForm" method="POST" action="/upload">
+        <label for="message">Enter your secret:</label>
+        <textarea id="message" name="input" rows="4" cols="50"></textarea>
+        <div class="button-container">
+            <button type="submit">Download</button>
+            <a href="/eds" class="eds-link">Check the signature</a>
+        </div>
+        <p class="error" id="error" style="display: none;">Message cannot exceed 10000 characters.</p>
+    </form>
+</div>
+<script>
+    document.getElementById("messageForm").addEventListener("submit", function(event) {
+        var message = document.getElementById("message").value;
+        var errorElement = document.getElementById("error");
+
+        if (message.length > 10000) {
+            event.preventDefault();
+            errorElement.style.display = "block";
+        } else {
+            errorElement.style.display = "none";
+        }
+    });
+</script>
+</body>
+</html>
